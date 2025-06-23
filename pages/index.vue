@@ -1,6 +1,6 @@
 <!-- pages/index.vue -->
 <template>
-  <div class="p-8 mx-auto">
+  <div class="p-8 mx-auto max-w-[1440px]">
     <div class="min-[900px]:flex min-[900px]:gap-3">
       <form
         class="flex flex-col gap-2 min-[900px]:w-1/2 min-[900px]:items-center min-[900px]:justify-center"
@@ -15,7 +15,7 @@
           type="text"
           id="cityEnter"
         />
-        <!-- <button type="submit">Get</button> -->
+        <p v-if="isLoading">Загрузка данных ...</p>
       </form>
       <div class="mx-auto min-[900px]:w-1/3">
         <WeatherCard :weather="weather" />
@@ -28,21 +28,34 @@
         :forecast="data"
       />
     </div>
+    <div v-if="hasError" class="mx-auto my-4">
+      <p class="uppercase text-xl font-semibold">
+        Нет данных по выбранному городу!
+      </p>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useWeather } from "@/composables/useWeather";
-import weatherCard from "@/components/weatherCard.vue";
 
 const city = ref("Нижний Новгород");
 const weather = ref(null);
+const isLoading = ref(false);
+const hasError = ref(false);
 
 const getWeather = async () => {
+  isLoading.value = true;
+  hasError.value = false;
   try {
     weather.value = await useWeather(city.value);
-  } catch (e) {}
+  } catch (e) {
+    weather.value = null;
+    hasError.value = true;
+  } finally {
+    isLoading.value = false;
+  }
 };
 getWeather();
 </script>
