@@ -1,6 +1,4 @@
 export default defineEventHandler(async (event) => {
-  console.log(1);
-
   const config = useRuntimeConfig();
   const apiKey = config.public.weatherApiKey;
   const baseUrl = config.public.weatherApiBaseUrl;

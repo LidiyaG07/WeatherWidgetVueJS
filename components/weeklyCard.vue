@@ -7,6 +7,8 @@
         {{
           new Date(forecast.date).toLocaleDateString("ru-RU", {
             weekday: "long",
+            day: "numeric",
+            month: "long",
           })
         }}
       </div>
