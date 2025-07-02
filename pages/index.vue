@@ -1,4 +1,4 @@
-<!-- pages/index.vue -->
+
 <template>
   <div class="p-8 mx-auto max-w-[1440px]">
     <div class="min-[900px]:flex min-[900px]:gap-3">
@@ -10,10 +10,10 @@
           >Введите город</label
         >
         <input
+          id="cityEnter"
           v-model="city"
           class="border p-5 text-xl rounded-2xl shadow-2xl bg-gradient-to-r from-gray-400 to-purple-500"
           type="text"
-          id="cityEnter"
         />
         <p v-if="isLoading">Загрузка данных ...</p>
       </form>
@@ -58,4 +58,7 @@ const getWeather = async () => {
   }
 };
 getWeather();
+
+const config = useRuntimeConfig();
+console.log("🌐 Публичный runtimeConfig:", config.public);
 </script>
