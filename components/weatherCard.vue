@@ -24,4 +24,7 @@ import { useWeather } from "~/composables/useWeather";
 const props = defineProps({
   weather: Object,
 });
+
+const config = useRuntimeConfig();
+console.log("🌐 Публичный runtimeConfig:", config.public);
 </script>
